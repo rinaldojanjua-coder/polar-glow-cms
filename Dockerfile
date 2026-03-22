@@ -68,11 +68,10 @@ RUN chmod +x start.sh
 COPY --from=builder --chown=nextjs:nodejs /app/.next/standalone ./
 COPY --from=builder --chown=nextjs:nodejs /app/.next/static ./.next/static
 
-USER nextjs
-
 EXPOSE 3000
 
 ENV PORT 3000
 
 # Copy DB to writable volume on first run, then start server
+# Run as root initially so we can write to the volume, then drop to nextjs
 CMD ["sh", "/app/start.sh"]
