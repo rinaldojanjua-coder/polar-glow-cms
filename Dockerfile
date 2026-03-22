@@ -30,18 +30,14 @@ ARG PAYLOAD_SECRET
 ARG DATABASE_URL=file:./testsitejon.db
 ARG NEXT_PUBLIC_SERVER_URL
 ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
-ENV DATABASE_URL=$DATABASE_URL
 ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 
 # Run Payload migrations to create database tables before building
-RUN npx cross-env NODE_OPTIONS=--no-deprecation npx payload migrate
+RUN DATABASE_URL=file:./testsitejon.db npx cross-env NODE_OPTIONS=--no-deprecation npx payload migrate
 
-RUN \
-  if [ -f yarn.lock ]; then yarn run build; \
-  elif [ -f package-lock.json ]; then npm run build; \
-  elif [ -f pnpm-lock.yaml ]; then corepack enable pnpm && pnpm run build; \
-  else echo "Lockfile not found." && exit 1; \
-  fi
+# Build Next.js (uses local DB for static page generation)
+RUN DATABASE_URL=file:./testsitejon.db \
+  npm run build
 
 # Production image, copy all the files and run next
 FROM base AS runner
