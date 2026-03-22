@@ -55,13 +55,17 @@ RUN adduser --system --uid 1001 nextjs
 # Remove this line if you do not have this folder
 COPY --from=builder /app/public ./public
 
-# Copy the database file so it exists at runtime
+# Copy the seed database (will be copied to volume on first run)
 COPY --from=builder /app/testsitejon.db ./testsitejon.db
+
+# Copy startup script
+COPY --from=builder /app/start.sh ./start.sh
 
 # Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
 RUN chown nextjs:nodejs testsitejon.db
+RUN chmod +x start.sh
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
@@ -74,6 +78,5 @@ EXPOSE 3000
 
 ENV PORT 3000
 
-# server.js is created by next build from the standalone output
-# https://nextjs.org/docs/pages/api-reference/next-config-js/output
-CMD HOSTNAME="0.0.0.0" node server.js
+# Copy DB to writable volume on first run, then start server
+CMD ["sh", "/app/start.sh"]
