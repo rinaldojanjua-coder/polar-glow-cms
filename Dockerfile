@@ -33,7 +33,7 @@ ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
 ENV DATABASE_URL=$DATABASE_URL
 ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 
-# Run Payload migrations to create the database tables before building
+# Run Payload migrations to create database tables before building
 RUN npx cross-env NODE_OPTIONS=--no-deprecation npx payload migrate
 
 RUN \
