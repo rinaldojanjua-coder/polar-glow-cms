@@ -7,13 +7,21 @@ import { CallToActionBlock } from '@/blocks/CallToAction/Component'
 import { ContentBlock } from '@/blocks/Content/Component'
 import { FormBlock } from '@/blocks/Form/Component'
 import { MediaBlock } from '@/blocks/MediaBlock/Component'
+import { ServicesBlock } from '@/blocks/Services/Component'
+import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
+import { FAQBlock } from '@/blocks/FAQ/Component'
+import { ImageTextBlock } from '@/blocks/ImageText/Component'
 
-const blockComponents = {
+const blockComponents: Record<string, React.FC<any>> = {
   archive: ArchiveBlock,
   content: ContentBlock,
   cta: CallToActionBlock,
   formBlock: FormBlock,
   mediaBlock: MediaBlock,
+  services: ServicesBlock,
+  testimonials: TestimonialsBlock,
+  faq: FAQBlock,
+  imageText: ImageTextBlock,
 }
 
 export const RenderBlocks: React.FC<{
@@ -35,7 +43,6 @@ export const RenderBlocks: React.FC<{
             if (Block) {
               return (
                 <div className="my-16" key={index}>
-                  {/* @ts-expect-error there may be some mismatch between the expected types here */}
                   <Block {...block} disableInnerContainer />
                 </div>
               )
