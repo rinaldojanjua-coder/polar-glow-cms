@@ -33,10 +33,8 @@ ENV PAYLOAD_SECRET=$PAYLOAD_SECRET
 ENV DATABASE_URL=$DATABASE_URL
 ENV NEXT_PUBLIC_SERVER_URL=$NEXT_PUBLIC_SERVER_URL
 
-# Next.js collects completely anonymous telemetry data about general usage.
-# Learn more here: https://nextjs.org/telemetry
-# Uncomment the following line in case you want to disable telemetry during the build.
-# ENV NEXT_TELEMETRY_DISABLED 1
+# Run Payload migrations to create the database tables before building
+RUN npx cross-env NODE_OPTIONS=--no-deprecation npx payload migrate
 
 RUN \
   if [ -f yarn.lock ]; then yarn run build; \
@@ -50,8 +48,6 @@ FROM base AS runner
 WORKDIR /app
 
 ENV NODE_ENV production
-# Uncomment the following line in case you want to disable telemetry during runtime.
-# ENV NEXT_TELEMETRY_DISABLED 1
 
 RUN addgroup --system --gid 1001 nodejs
 RUN adduser --system --uid 1001 nextjs
@@ -59,9 +55,13 @@ RUN adduser --system --uid 1001 nextjs
 # Remove this line if you do not have this folder
 COPY --from=builder /app/public ./public
 
+# Copy the database file so it exists at runtime
+COPY --from=builder /app/testsitejon.db ./testsitejon.db
+
 # Set the correct permission for prerender cache
 RUN mkdir .next
 RUN chown nextjs:nodejs .next
+RUN chown nextjs:nodejs testsitejon.db
 
 # Automatically leverage output traces to reduce image size
 # https://nextjs.org/docs/advanced-features/output-file-tracing
