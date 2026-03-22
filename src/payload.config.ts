@@ -64,7 +64,7 @@ export default buildConfig({
     },
   }),
   collections: [Pages, Posts, Media, Categories, Users],
-  cors: [getServerSideURL(), 'http://localhost:4321'].filter(Boolean),
+  cors: [getServerSideURL(), 'http://localhost:4321', 'https://polar-glow-detailing.netlify.app'].filter(Boolean),
   globals: [Header, Footer, SiteSettings],
   plugins,
   secret: process.env.PAYLOAD_SECRET,
