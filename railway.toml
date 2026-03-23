@@ -5,6 +5,7 @@ dockerfilePath = "Dockerfile"
 PAYLOAD_SECRET = "${{PAYLOAD_SECRET}}"
 DATABASE_URL = "${{DATABASE_URL}}"
 NEXT_PUBLIC_SERVER_URL = "${{NEXT_PUBLIC_SERVER_URL}}"
+ASTRO_URL = "${{ASTRO_URL}}"
 
 [deploy]
 healthcheckPath = "/"
