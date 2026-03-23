@@ -213,6 +213,10 @@ export interface Page {
     | TestimonialsBlock
     | FAQBlock
     | ImageTextBlock
+    | FeaturesBlock
+    | PricingBlock
+    | ProcessBlock
+    | PhotoGalleryBlock
   )[];
   meta?: {
     title?: string | null;
@@ -902,6 +906,83 @@ export interface ImageTextBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesBlock".
+ */
+export interface FeaturesBlock {
+  heading?: string | null;
+  /**
+   * Image displayed next to the features list
+   */
+  image?: (number | null) | Media;
+  features?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'features';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingBlock".
+ */
+export interface PricingBlock {
+  heading?: string | null;
+  subtitle?: string | null;
+  tiers?:
+    | {
+        name: string;
+        price: string;
+        duration?: string | null;
+        description?: string | null;
+        /**
+         * Highlight this tier with accent color
+         */
+        highlighted?: boolean | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'pricing';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock".
+ */
+export interface ProcessBlock {
+  heading?: string | null;
+  steps?:
+    | {
+        text: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'process';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PhotoGalleryBlock".
+ */
+export interface PhotoGalleryBlock {
+  heading?: string | null;
+  photos?:
+    | {
+        image: number | Media;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'photoGallery';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1212,6 +1293,10 @@ export interface PagesSelect<T extends boolean = true> {
         testimonials?: T | TestimonialsBlockSelect<T>;
         faq?: T | FAQBlockSelect<T>;
         imageText?: T | ImageTextBlockSelect<T>;
+        features?: T | FeaturesBlockSelect<T>;
+        pricing?: T | PricingBlockSelect<T>;
+        process?: T | ProcessBlockSelect<T>;
+        photoGallery?: T | PhotoGalleryBlockSelect<T>;
       };
   meta?:
     | T
@@ -1381,6 +1466,73 @@ export interface ImageTextBlockSelect<T extends boolean = true> {
         url?: T;
         label?: T;
         appearance?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "FeaturesBlock_select".
+ */
+export interface FeaturesBlockSelect<T extends boolean = true> {
+  heading?: T;
+  image?: T;
+  features?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PricingBlock_select".
+ */
+export interface PricingBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subtitle?: T;
+  tiers?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        duration?: T;
+        description?: T;
+        highlighted?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ProcessBlock_select".
+ */
+export interface ProcessBlockSelect<T extends boolean = true> {
+  heading?: T;
+  steps?:
+    | T
+    | {
+        text?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "PhotoGalleryBlock_select".
+ */
+export interface PhotoGalleryBlockSelect<T extends boolean = true> {
+  heading?: T;
+  photos?:
+    | T
+    | {
+        image?: T;
+        alt?: T;
+        id?: T;
       };
   id?: T;
   blockName?: T;

@@ -11,6 +11,10 @@ import { ServicesBlock } from '@/blocks/Services/Component'
 import { TestimonialsBlock } from '@/blocks/Testimonials/Component'
 import { FAQBlock } from '@/blocks/FAQ/Component'
 import { ImageTextBlock } from '@/blocks/ImageText/Component'
+import { FeaturesBlockComponent } from '@/blocks/Features/Component'
+import { PricingBlockComponent } from '@/blocks/Pricing/Component'
+import { ProcessBlockComponent } from '@/blocks/Process/Component'
+import { PhotoGalleryBlockComponent } from '@/blocks/PhotoGallery/Component'
 
 const blockComponents: Record<string, React.FC<any>> = {
   archive: ArchiveBlock,
@@ -22,6 +26,10 @@ const blockComponents: Record<string, React.FC<any>> = {
   testimonials: TestimonialsBlock,
   faq: FAQBlock,
   imageText: ImageTextBlock,
+  features: FeaturesBlockComponent,
+  pricing: PricingBlockComponent,
+  process: ProcessBlockComponent,
+  photoGallery: PhotoGalleryBlockComponent,
 }
 
 export const RenderBlocks: React.FC<{
