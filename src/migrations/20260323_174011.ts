@@ -674,7 +674,7 @@ export async function up({ db, payload, req }: MigrateUpArgs): Promise<void> {
   	FOREIGN KEY (\`logo_id\`) REFERENCES \`media\`(\`id\`) ON UPDATE no action ON DELETE set null
   );
   `)
-  await db.run(sql`INSERT INTO \`__new_site_settings\`("id", "site_name", "tagline", "description", "phone", "email", "address", "hours", "sunday_hours", "booking_url", "logo_id", "service_areas", "cta_heading", "cta_subtext", "footer_description", "copyright_text", "updated_at", "created_at") SELECT "id", "site_name", "tagline", "description", "phone", "email", "address", "hours", "sunday_hours", "booking_url", "logo_id", "service_areas", "cta_heading", "cta_subtext", "footer_description", "copyright_text", "updated_at", "created_at" FROM \`site_settings\`;`)
+  await db.run(sql`INSERT INTO \`__new_site_settings\`("id", "site_name", "phone", "email", "address", "logo_id", "service_areas", "updated_at", "created_at") SELECT "id", "site_name", "phone", "email", "address", "logo_id", "service_areas", "updated_at", "created_at" FROM \`site_settings\`;`)
   await db.run(sql`DROP TABLE \`site_settings\`;`)
   await db.run(sql`ALTER TABLE \`__new_site_settings\` RENAME TO \`site_settings\`;`)
   await db.run(sql`PRAGMA foreign_keys=ON;`)
