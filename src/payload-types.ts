@@ -2045,21 +2045,66 @@ export interface Footer {
 export interface SiteSetting {
   id: number;
   siteName: string;
+  tagline?: string | null;
+  description?: string | null;
   phone?: string | null;
   email?: string | null;
   address?: string | null;
+  hours?: string | null;
+  sundayHours?: string | null;
+  /**
+   * Square booking URL
+   */
+  bookingUrl?: string | null;
   logo?: (number | null) | Media;
-  socialLinks?:
-    | {
-        platform: 'facebook' | 'instagram' | 'google' | 'yelp';
-        url: string;
-        id?: string | null;
-      }[]
-    | null;
   /**
    * Comma-separated list of service areas
    */
   serviceAreas?: string | null;
+  /**
+   * Individual service area pages
+   */
+  serviceAreasList?:
+    | {
+        name: string;
+        slug: string;
+        id?: string | null;
+      }[]
+    | null;
+  socialLinks?:
+    | {
+        platform: 'facebook' | 'instagram' | 'google' | 'yelp' | 'tiktok';
+        url: string;
+        id?: string | null;
+      }[]
+    | null;
+  statsBar?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  whyChooseUs?:
+    | {
+        title: string;
+        description: string;
+        id?: string | null;
+      }[]
+    | null;
+  testimonials?:
+    | {
+        quote: string;
+        author: string;
+        location?: string | null;
+        rating?: number | null;
+        id?: string | null;
+      }[]
+    | null;
+  ctaHeading?: string | null;
+  ctaSubtext?: string | null;
+  footerDescription?: string | null;
+  copyrightText?: string | null;
   updatedAt?: string | null;
   createdAt?: string | null;
 }
@@ -2115,10 +2160,23 @@ export interface FooterSelect<T extends boolean = true> {
  */
 export interface SiteSettingsSelect<T extends boolean = true> {
   siteName?: T;
+  tagline?: T;
+  description?: T;
   phone?: T;
   email?: T;
   address?: T;
+  hours?: T;
+  sundayHours?: T;
+  bookingUrl?: T;
   logo?: T;
+  serviceAreas?: T;
+  serviceAreasList?:
+    | T
+    | {
+        name?: T;
+        slug?: T;
+        id?: T;
+      };
   socialLinks?:
     | T
     | {
@@ -2126,7 +2184,33 @@ export interface SiteSettingsSelect<T extends boolean = true> {
         url?: T;
         id?: T;
       };
-  serviceAreas?: T;
+  statsBar?:
+    | T
+    | {
+        value?: T;
+        label?: T;
+        id?: T;
+      };
+  whyChooseUs?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        id?: T;
+      };
+  testimonials?:
+    | T
+    | {
+        quote?: T;
+        author?: T;
+        location?: T;
+        rating?: T;
+        id?: T;
+      };
+  ctaHeading?: T;
+  ctaSubtext?: T;
+  footerDescription?: T;
+  copyrightText?: T;
   updatedAt?: T;
   createdAt?: T;
   globalType?: T;

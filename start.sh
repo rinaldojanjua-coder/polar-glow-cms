@@ -8,7 +8,7 @@ else
   CURRENT_VERSION="0"
 fi
 
-BUILD_VERSION="2"
+BUILD_VERSION="3"
 
 if [ "$CURRENT_VERSION" != "$BUILD_VERSION" ]; then
   echo "Schema version mismatch ($CURRENT_VERSION != $BUILD_VERSION). Recreating database..."
