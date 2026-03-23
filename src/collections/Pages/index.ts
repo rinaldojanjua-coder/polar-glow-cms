@@ -15,6 +15,14 @@ import { FeaturesBlock } from '../../blocks/Features/config'
 import { PricingBlock } from '../../blocks/Pricing/config'
 import { ProcessBlock } from '../../blocks/Process/config'
 import { PhotoGalleryBlock } from '../../blocks/PhotoGallery/config'
+import { CTABannerBlock } from '../../blocks/CTABanner/config'
+import { HeroSimpleBlock } from '../../blocks/HeroSimple/config'
+import { AreaInfoBlock } from '../../blocks/AreaInfo/config'
+import { ServiceCardsBlock } from '../../blocks/ServiceCards/config'
+import { BeforeAfterBlock } from '../../blocks/BeforeAfter/config'
+import { GalleryGridBlock } from '../../blocks/GalleryGrid/config'
+import { ContactInfoBlock } from '../../blocks/ContactInfo/config'
+import { StatsBannerBlock } from '../../blocks/StatsBanner/config'
 import { hero } from '@/heros/config'
 import { slugField } from 'payload'
 import { populatePublishedAt } from '../../hooks/populatePublishedAt'
@@ -80,7 +88,29 @@ export const Pages: CollectionConfig<'pages'> = {
             {
               name: 'layout',
               type: 'blocks',
-              blocks: [CallToAction, Content, MediaBlock, Archive, FormBlock, ServicesBlock, TestimonialsBlock, FAQBlock, ImageTextBlock, FeaturesBlock, PricingBlock, ProcessBlock, PhotoGalleryBlock],
+              blocks: [
+                CallToAction,
+                Content,
+                MediaBlock,
+                Archive,
+                FormBlock,
+                ServicesBlock,
+                TestimonialsBlock,
+                FAQBlock,
+                ImageTextBlock,
+                FeaturesBlock,
+                PricingBlock,
+                ProcessBlock,
+                PhotoGalleryBlock,
+                CTABannerBlock,
+                HeroSimpleBlock,
+                AreaInfoBlock,
+                ServiceCardsBlock,
+                BeforeAfterBlock,
+                GalleryGridBlock,
+                ContactInfoBlock,
+                StatsBannerBlock,
+              ],
               required: true,
               admin: {
                 initCollapsed: true,
