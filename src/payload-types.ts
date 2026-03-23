@@ -217,6 +217,14 @@ export interface Page {
     | PricingBlock
     | ProcessBlock
     | PhotoGalleryBlock
+    | CTABannerBlock
+    | HeroSimpleBlock
+    | AreaInfoBlock
+    | ServiceCardsBlock
+    | BeforeAfterBlock
+    | GalleryGridBlock
+    | ContactInfoBlock
+    | StatsBannerBlock
   )[];
   meta?: {
     title?: string | null;
@@ -983,6 +991,170 @@ export interface PhotoGalleryBlock {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABannerBlock".
+ */
+export interface CTABannerBlock {
+  heading?: string | null;
+  subheading?: string | null;
+  primaryButtonText?: string | null;
+  primaryButtonUrl?: string | null;
+  secondaryButtonText?: string | null;
+  secondaryButtonUrl?: string | null;
+  style?: ('dark' | 'light') | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'ctaBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSimpleBlock".
+ */
+export interface HeroSimpleBlock {
+  heading: string;
+  subheading?: string | null;
+  /**
+   * Path to background image (e.g. /images/hero-car.jpg)
+   */
+  backgroundImage?: string | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'heroSimple';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AreaInfoBlock".
+ */
+export interface AreaInfoBlock {
+  heading: string;
+  description: string;
+  /**
+   * Path to area image (e.g. /images/eagle-river.jpg)
+   */
+  image?: string | null;
+  neighborhoods?:
+    | {
+        name: string;
+        id?: string | null;
+      }[]
+    | null;
+  highlights?:
+    | {
+        title: string;
+        description: string;
+        icon?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'areaInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceCardsBlock".
+ */
+export interface ServiceCardsBlock {
+  heading?: string | null;
+  subheading?: string | null;
+  cards?:
+    | {
+        name: string;
+        price: string;
+        duration?: string | null;
+        description?: string | null;
+        /**
+         * Path to image (e.g. /images/detail-work-3.jpg)
+         */
+        image?: string | null;
+        /**
+         * URL to link to (e.g. /trucks-small-cars)
+         */
+        link?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'serviceCards';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BeforeAfterBlock".
+ */
+export interface BeforeAfterBlock {
+  heading?: string | null;
+  subheading?: string | null;
+  pairs?:
+    | {
+        label: string;
+        /**
+         * Path to before image
+         */
+        beforeImage: string;
+        /**
+         * Path to after image
+         */
+        afterImage: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'beforeAfter';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryGridBlock".
+ */
+export interface GalleryGridBlock {
+  heading?: string | null;
+  subheading?: string | null;
+  images?:
+    | {
+        /**
+         * Image path (e.g. /images/detail-work-1.jpg)
+         */
+        src: string;
+        alt?: string | null;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'galleryGrid';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock".
+ */
+export interface ContactInfoBlock {
+  heading?: string | null;
+  /**
+   * Show the contact form alongside the info
+   */
+  showForm?: boolean | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'contactInfo';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBannerBlock".
+ */
+export interface StatsBannerBlock {
+  stats?:
+    | {
+        value: string;
+        label: string;
+        id?: string | null;
+      }[]
+    | null;
+  id?: string | null;
+  blockName?: string | null;
+  blockType: 'statsBanner';
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
  * via the `definition` "redirects".
  */
 export interface Redirect {
@@ -1297,6 +1469,14 @@ export interface PagesSelect<T extends boolean = true> {
         pricing?: T | PricingBlockSelect<T>;
         process?: T | ProcessBlockSelect<T>;
         photoGallery?: T | PhotoGalleryBlockSelect<T>;
+        ctaBanner?: T | CTABannerBlockSelect<T>;
+        heroSimple?: T | HeroSimpleBlockSelect<T>;
+        areaInfo?: T | AreaInfoBlockSelect<T>;
+        serviceCards?: T | ServiceCardsBlockSelect<T>;
+        beforeAfter?: T | BeforeAfterBlockSelect<T>;
+        galleryGrid?: T | GalleryGridBlockSelect<T>;
+        contactInfo?: T | ContactInfoBlockSelect<T>;
+        statsBanner?: T | StatsBannerBlockSelect<T>;
       };
   meta?:
     | T
@@ -1532,6 +1712,138 @@ export interface PhotoGalleryBlockSelect<T extends boolean = true> {
     | {
         image?: T;
         alt?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "CTABannerBlock_select".
+ */
+export interface CTABannerBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  primaryButtonText?: T;
+  primaryButtonUrl?: T;
+  secondaryButtonText?: T;
+  secondaryButtonUrl?: T;
+  style?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "HeroSimpleBlock_select".
+ */
+export interface HeroSimpleBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  backgroundImage?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "AreaInfoBlock_select".
+ */
+export interface AreaInfoBlockSelect<T extends boolean = true> {
+  heading?: T;
+  description?: T;
+  image?: T;
+  neighborhoods?:
+    | T
+    | {
+        name?: T;
+        id?: T;
+      };
+  highlights?:
+    | T
+    | {
+        title?: T;
+        description?: T;
+        icon?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ServiceCardsBlock_select".
+ */
+export interface ServiceCardsBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  cards?:
+    | T
+    | {
+        name?: T;
+        price?: T;
+        duration?: T;
+        description?: T;
+        image?: T;
+        link?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "BeforeAfterBlock_select".
+ */
+export interface BeforeAfterBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  pairs?:
+    | T
+    | {
+        label?: T;
+        beforeImage?: T;
+        afterImage?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "GalleryGridBlock_select".
+ */
+export interface GalleryGridBlockSelect<T extends boolean = true> {
+  heading?: T;
+  subheading?: T;
+  images?:
+    | T
+    | {
+        src?: T;
+        alt?: T;
+        id?: T;
+      };
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "ContactInfoBlock_select".
+ */
+export interface ContactInfoBlockSelect<T extends boolean = true> {
+  heading?: T;
+  showForm?: T;
+  id?: T;
+  blockName?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "StatsBannerBlock_select".
+ */
+export interface StatsBannerBlockSelect<T extends boolean = true> {
+  stats?:
+    | T
+    | {
+        value?: T;
+        label?: T;
         id?: T;
       };
   id?: T;
