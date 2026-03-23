@@ -1,23 +1,12 @@
 #!/bin/sh
 
-# Force recreate database from build to pick up new schema
-# Remove this line after initial migration is complete
-if [ -f /data/.schema_version ]; then
-  CURRENT_VERSION=$(cat /data/.schema_version)
-else
-  CURRENT_VERSION="0"
-fi
-
-BUILD_VERSION="3"
-
-if [ "$CURRENT_VERSION" != "$BUILD_VERSION" ]; then
-  echo "Schema version mismatch ($CURRENT_VERSION != $BUILD_VERSION). Recreating database..."
-  rm -f /data/testsitejon.db
+# Copy seed database ONLY if no database exists yet (first deploy)
+if [ ! -f /data/testsitejon.db ]; then
+  echo "No database found. Creating from seed..."
   cp /app/testsitejon.db /data/testsitejon.db
-  echo "$BUILD_VERSION" > /data/.schema_version
-  echo "Database recreated with latest schema."
+  echo "Database created."
 else
-  echo "Database schema is current (version $BUILD_VERSION)."
+  echo "Existing database found. Preserving data."
 fi
 
 # Ensure the nextjs user can write to the DB
