@@ -1,19 +1,28 @@
 #!/bin/sh
 
-# Copy seed database to volume if it doesn't exist yet
-if [ ! -f /data/testsitejon.db ]; then
-  echo "Initializing database on volume..."
+# Force recreate database from build to pick up new schema
+# Remove this line after initial migration is complete
+if [ -f /data/.schema_version ]; then
+  CURRENT_VERSION=$(cat /data/.schema_version)
+else
+  CURRENT_VERSION="0"
+fi
+
+BUILD_VERSION="2"
+
+if [ "$CURRENT_VERSION" != "$BUILD_VERSION" ]; then
+  echo "Schema version mismatch ($CURRENT_VERSION != $BUILD_VERSION). Recreating database..."
+  rm -f /data/testsitejon.db
   cp /app/testsitejon.db /data/testsitejon.db
+  echo "$BUILD_VERSION" > /data/.schema_version
+  echo "Database recreated with latest schema."
+else
+  echo "Database schema is current (version $BUILD_VERSION)."
 fi
 
 # Ensure the nextjs user can write to the DB
 chown nextjs:nodejs /data/testsitejon.db 2>/dev/null || true
 chmod 664 /data/testsitejon.db 2>/dev/null || true
-
-# Run any pending migrations on the volume database
-echo "Running pending migrations..."
-DATABASE_URL=file:/data/testsitejon.db npx cross-env NODE_OPTIONS=--no-deprecation npx payload migrate 2>&1 || true
-echo "Migrations complete."
 
 # Start the server
 HOSTNAME="0.0.0.0" node server.js
