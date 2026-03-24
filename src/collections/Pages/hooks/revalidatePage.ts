@@ -4,6 +4,18 @@ import { revalidatePath, revalidateTag } from 'next/cache'
 
 import type { Page } from '../../../payload-types'
 
+// Trigger Netlify rebuild when content is published
+const triggerNetlifyBuild = async (logger: any) => {
+  const hookUrl = process.env.NETLIFY_BUILD_HOOK
+  if (!hookUrl) return
+  try {
+    await fetch(hookUrl, { method: 'POST' })
+    logger.info('Triggered Netlify rebuild')
+  } catch (e) {
+    logger.error('Failed to trigger Netlify rebuild')
+  }
+}
+
 export const revalidatePage: CollectionAfterChangeHook<Page> = ({
   doc,
   previousDoc,
@@ -17,6 +29,7 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 
       revalidatePath(path)
       revalidateTag('pages-sitemap', 'max')
+      triggerNetlifyBuild(payload.logger)
     }
 
     // If the page was previously published, we need to revalidate the old path
@@ -27,6 +40,7 @@ export const revalidatePage: CollectionAfterChangeHook<Page> = ({
 
       revalidatePath(oldPath)
       revalidateTag('pages-sitemap', 'max')
+      triggerNetlifyBuild(payload.logger)
     }
   }
   return doc
